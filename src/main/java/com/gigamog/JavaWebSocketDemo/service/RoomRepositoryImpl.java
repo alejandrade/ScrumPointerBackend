@@ -22,8 +22,6 @@ public class RoomRepositoryImpl implements RoomRepository {
     public Room create(Room room) {
         String newId = UUID.randomUUID().toString();
         room.setId(StringUtils.defaultIfEmpty(room.getId(), newId));
-        room.setUsers(new ArrayList<>());
-        room.setStories(new ArrayList<>());
         rooms.put(room.getId(), room);
         return room;
     }

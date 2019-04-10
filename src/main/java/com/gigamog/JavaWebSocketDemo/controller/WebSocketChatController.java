@@ -25,7 +25,8 @@ public class WebSocketChatController {
 
     @MessageMapping("/chat/{roomId}/sendMessage")
     public void sendMessage(@DestinationVariable String roomId, @Payload WebSocketChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
-        roomService.update(chatMessage.getRoom());
+        Room update = roomService.update(chatMessage.getRoom());
+        chatMessage.setRoom(update);
         messageService.sendMessage(roomId, chatMessage);
     }
 
@@ -51,7 +52,8 @@ public class WebSocketChatController {
             WebSocketChatMessage leaveMessage = new WebSocketChatMessage();
             leaveMessage.setType(MessageType.LEAVE);
             leaveMessage.setSender(chatMessage.getSender());
-            roomService.removeUserFromRoom(currentRoomId, userName);
+            Room room = roomService.removeUserFromRoom(currentRoomId, userName);
+            chatMessage.setRoom(room);
             messageService.sendMessage(roomId, chatMessage);
         }
     }

@@ -1,6 +1,7 @@
 package com.gigamog.JavaWebSocketDemo.config;
 
 import com.gigamog.JavaWebSocketDemo.model.MessageType;
+import com.gigamog.JavaWebSocketDemo.model.Room;
 import com.gigamog.JavaWebSocketDemo.model.WebSocketChatMessage;
 import com.gigamog.JavaWebSocketDemo.service.MessageService;
 import com.gigamog.JavaWebSocketDemo.service.RoomService;
@@ -33,10 +34,11 @@ public class WebSocketChatEventListener {
         String username = (String) headerAccessor.getSessionAttributes().get("userName");
         String roomId = (String) headerAccessor.getSessionAttributes().get("roomId");
         if(username != null) {
-            roomService.removeUserFromRoom(username, roomId);
+            Room room = roomService.removeUserFromRoom(roomId, username);
             WebSocketChatMessage chatMessage = new WebSocketChatMessage();
             chatMessage.setType(MessageType.LEAVE);
             chatMessage.setSender(username);
+            chatMessage.setRoom(room);
             messageService.sendMessage(roomId, chatMessage);
         }
     }

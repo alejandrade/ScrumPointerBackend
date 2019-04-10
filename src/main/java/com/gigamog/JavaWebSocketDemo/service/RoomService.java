@@ -1,7 +1,6 @@
 package com.gigamog.JavaWebSocketDemo.service;
 
 import com.gigamog.JavaWebSocketDemo.model.Room;
-import com.gigamog.JavaWebSocketDemo.model.Story;
 import com.gigamog.JavaWebSocketDemo.model.User;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,14 +19,14 @@ public class RoomService {
         if (room == null) {
             room = roomRepository.create(new Room(roomId));
         }
-        room.getUsers().add(User.builder()
-                .name(sender)
-                .build());
-        room.setCurrentStory(new Story());
+        User user = new User();
+        user.setName(sender);
+
+        room.getUsers().add(user);
         return room;
     }
 
-    public void removeUserFromRoom(String currentRoomId, String userName) {
+    public Room removeUserFromRoom(String currentRoomId, String userName) {
         Room room = roomRepository.get(new Room(currentRoomId));
         if (room != null) {
             List<User> users = room.getUsers();
@@ -46,6 +45,7 @@ public class RoomService {
                 roomRepository.remove(room);
             }
         }
+        return room;
     }
 
     public Room update(Room room){
