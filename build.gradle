@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+}
+
+group 'com.gigamog'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+configurations.all {
+    exclude module: 'slf4j-log4j12'
+}
+
+dependencies {
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-websocket', version: '2.1.4.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-amqp', version: '2.1.4.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-reactor-netty', version: '2.1.4.RELEASE'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
+    compileOnly 'org.projectlombok:lombok:1.18.6'
+    annotationProcessor 'org.projectlombok:lombok:1.18.6'
+    compile "org.slf4j:slf4j-api:1.7.21"
+    compile "org.slf4j:slf4j-log4j12:1.7.21"
+    compile "commons-logging:commons-logging:1.2"
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.1.4.RELEASE'
+}
