@@ -18,8 +18,6 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class WebSocketChatController {
 
-    private SimpMessageSendingOperations messagingTemplate;
-    private RoomRepository roomRepository;
     private RoomService roomService;
     private MessageService messageService;
 
@@ -33,31 +31,12 @@ public class WebSocketChatController {
     @MessageMapping("/chat/{roomId}/addUser")
     public void addUser(@DestinationVariable String roomId, @Payload WebSocketChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
         headerAccessor.getSessionAttributes().put("roomId", roomId);
-        headerAccessor.getSessionAttributes().put("userName", chatMessage.getSender());
+        headerAccessor.getSessionAttributes().put("userId", chatMessage.getSender().getId());
         Room room = roomService.addUser(roomId, chatMessage.getSender());
         chatMessage.setRoom(room);
         chatMessage.setType(MessageType.UPDATE);
         messageService.sendMessage(roomId, chatMessage);
     }
-
-
-
-    @MessageMapping("/chat/{roomId}/leaveuser")
-    public void leaveRoom(@DestinationVariable String roomId, @Payload WebSocketChatMessage chatMessage,SimpMessageHeaderAccessor headerAccessor)
-    {
-        String currentRoomId = (String) headerAccessor.getSessionAttributes().put("roomId", roomId);
-        String userName = (String) headerAccessor.getSessionAttributes().put("userName", chatMessage.getSender());
-
-        if (currentRoomId != null) {
-            WebSocketChatMessage leaveMessage = new WebSocketChatMessage();
-            leaveMessage.setType(MessageType.LEAVE);
-            leaveMessage.setSender(chatMessage.getSender());
-            Room room = roomService.removeUserFromRoom(currentRoomId, userName);
-            chatMessage.setRoom(room);
-            messageService.sendMessage(roomId, chatMessage);
-        }
-    }
-
 
 }
 ;

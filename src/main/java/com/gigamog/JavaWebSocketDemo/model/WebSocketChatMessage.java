@@ -7,6 +7,6 @@ import lombok.Setter;
 @Setter
 public class WebSocketChatMessage {
     private MessageType type;
-    private String sender;
+    private User sender;
     private Room room;
 }

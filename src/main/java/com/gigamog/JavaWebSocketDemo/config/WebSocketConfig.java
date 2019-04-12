@@ -14,20 +14,25 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 @EnableWebSocketMessageBroker
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
-    @Value("${com.gigamog.cred.username}")
+    @Value("${com.gigamog.mq.username}")
     private String username;
 
-    @Value("${com.gigamog.cred.password}")
+    @Value("${com.gigamog.mq.password}")
     private String pass;
 
+    @Value("${com.gigamog.mq.host}")
+    private String host;
+
+    @Value("${com.gigamog.mq.port}")
+    private Integer port;
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
 
         ReactorNettyTcpClient<byte[]> client = new ReactorNettyTcpClient<byte[]>(builder ->
              builder
-                     .port(61614)
-                     .host("b-b4d99760-2bae-47a6-ba6c-cb2b0abca0e9-1.mq.us-east-2.amazonaws.com")
+                     .port(port)
+                     .host(host)
                      .secure()
         , new StompReactorNettyCodec());
         config

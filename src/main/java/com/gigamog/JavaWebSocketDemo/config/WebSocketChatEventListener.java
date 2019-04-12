@@ -2,6 +2,7 @@ package com.gigamog.JavaWebSocketDemo.config;
 
 import com.gigamog.JavaWebSocketDemo.model.MessageType;
 import com.gigamog.JavaWebSocketDemo.model.Room;
+import com.gigamog.JavaWebSocketDemo.model.User;
 import com.gigamog.JavaWebSocketDemo.model.WebSocketChatMessage;
 import com.gigamog.JavaWebSocketDemo.service.MessageService;
 import com.gigamog.JavaWebSocketDemo.service.RoomService;
@@ -31,13 +32,13 @@ public class WebSocketChatEventListener {
     @EventListener
     public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {
         StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
-        String username = (String) headerAccessor.getSessionAttributes().get("userName");
+        String userId = (String) headerAccessor.getSessionAttributes().get("userId");
         String roomId = (String) headerAccessor.getSessionAttributes().get("roomId");
-        if(username != null) {
-            Room room = roomService.removeUserFromRoom(roomId, username);
+        if(userId != null) {
+            Room room = roomService.removeUserFromRoom(roomId, userId);
             WebSocketChatMessage chatMessage = new WebSocketChatMessage();
-            chatMessage.setType(MessageType.LEAVE);
-            chatMessage.setSender(username);
+            chatMessage.setType(MessageType.UPDATE);
+            chatMessage.setSender(new User(){{setId(userId);}});
             chatMessage.setRoom(room);
             messageService.sendMessage(roomId, chatMessage);
         }

@@ -5,6 +5,7 @@ import com.gigamog.JavaWebSocketDemo.model.User;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,33 +15,20 @@ public class RoomService {
 
     private RoomRepository roomRepository;
 
-    public Room addUser(String roomId, String sender) {
+    public Room addUser(String roomId, User sender) {
         Room room = roomRepository.get(new Room(roomId));
         if (room == null) {
             room = roomRepository.create(new Room(roomId));
         }
-        User user = new User();
-        user.setName(sender);
-
-        room.getUsers().add(user);
+        room.getUsers().add(sender);
         return room;
     }
 
-    public Room removeUserFromRoom(String currentRoomId, String userName) {
+    public Room removeUserFromRoom(String currentRoomId, String userId) {
         Room room = roomRepository.get(new Room(currentRoomId));
         if (room != null) {
             List<User> users = room.getUsers();
-            User user = null;
-            for (User userInList : users) {
-                if (Objects.equals(userInList.getName(), userName)) {
-                    user = userInList;
-                    break;
-                }
-            }
-
-            if (user != null ){
-                users.remove(user);
-            }
+            users.remove(users.stream().filter(x->x.getId().equals(userId)).findAny().orElse(null));
             if (users.isEmpty()) {
                 roomRepository.remove(room);
             }
