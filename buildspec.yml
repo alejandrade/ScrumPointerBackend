@@ -10,7 +10,7 @@ phases:
     commands:
       - echo Installing dependencies...
       - curl -s "https://get.sdkman.io" | bash
-      - source "$HOME/.sdkman/bin/sdkman-init.sh"
+      - source "/root/.sdkman/bin/sdkman-init.sh"
       - sdk install gradle 5.4
       - ./gradlew install
   build:
