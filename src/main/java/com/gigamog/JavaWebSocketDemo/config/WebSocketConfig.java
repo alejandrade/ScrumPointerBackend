@@ -33,7 +33,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
              builder
                      .port(port)
                      .host(host)
-                     .secure()
         , new StompReactorNettyCodec());
         config
                 .setApplicationDestinationPrefixes("/app")
