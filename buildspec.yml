@@ -1,16 +1,25 @@
 version: 0.2
-
+env:
+  variables:
+    CACHE_CONTROL: "86400"
+    S3_BUCKET: "gigamogdeployment"
+    BUILD_FOLDER: "build"
+    BUILD_ENV: "prod"
 phases:
+  install:
+    commands:
+      - echo Installing dependencies...
+      - gradle install
   build:
     commands:
       - echo Build started on `date`
-      - gradle test
+      - gradle bootJar
   post_build:
     commands:
-      - gradle bootJar
+      - aws s3 cp ${BUILD_FOLDER} s3://${S3_BUCKET} --recursive --acl public-read --cache-control "max-age=${CACHE_CONTROL}"
       - echo Build completed on `date`
 artifacts:
   files:
-    - build/*
-    - appspec.yml
+    - '**/*'
+  base-directory: 'build*'
   discard-paths: yes
