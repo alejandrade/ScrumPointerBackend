@@ -9,6 +9,7 @@ phases:
   install:
     commands:
       - echo Installing dependencies...
+      - gradle wrapper
       - ./gradlew install
   build:
     commands:
