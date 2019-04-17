@@ -38,3 +38,7 @@ jar {
         )
     }
 }
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '5.3.1' //we want gradle 2.10 to run this project
+}
