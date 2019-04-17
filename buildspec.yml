@@ -6,6 +6,11 @@ env:
     BUILD_FOLDER: "build"
     BUILD_ENV: "prod"
 phases:
+  install:
+    commands:
+      - echo Installing dependencies...
+      - gradle wrapper
+      - ./gradlew install
   build:
     commands:
       - echo Build started on `date`
