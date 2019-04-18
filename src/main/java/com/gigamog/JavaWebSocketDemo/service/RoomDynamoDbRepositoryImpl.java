@@ -1,43 +1,41 @@
 package com.gigamog.JavaWebSocketDemo.service;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.gigamog.JavaWebSocketDemo.model.Room;
+import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
 
-import java.util.*;
+import java.util.UUID;
 
-/**
- * we are using a hashmap but if we wanted to make this production ready we would need to use a database
- */
-public class RoomRepositoryImpl implements RoomRepository {
+@AllArgsConstructor
+@Repository
+public class RoomDynamoDbRepositoryImpl implements RoomRepository {
 
-    private Map<String, Room> rooms;
 
-    public RoomRepositoryImpl(){
-        rooms = new HashMap<>();
-    }
+    private final DynamoDBMapper dynamoDBMapper;
 
     @Override
     public Room create(Room room) {
         String newId = UUID.randomUUID().toString();
         room.setId(StringUtils.defaultIfEmpty(room.getId(), newId));
-        rooms.put(room.getId(), room);
+        dynamoDBMapper.save(room);
         return room;
     }
 
     @Override
     public void remove(Room room) {
-        rooms.remove(room.getId());
+        dynamoDBMapper.delete(room);
     }
 
     @Override
     public Room get(Room room) {
-        return rooms.get(room.getId());
+        return dynamoDBMapper.load(room);
     }
 
     @Override
     public Room update(Room room) {
-        rooms.put(room.getId(), room);
-        return rooms.get(room.getId());
+        dynamoDBMapper.save(room);
+        return room;
     }
 }
