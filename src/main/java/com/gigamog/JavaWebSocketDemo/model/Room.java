@@ -30,6 +30,8 @@ public class Room {
     @DynamoDBAttribute(attributeName = "currentStory")
     private Story currentStory = new Story();
 
+    private Integer createdDate;
+
     public Room(String id) {
         this.id = id;
     }
