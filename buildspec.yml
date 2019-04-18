@@ -10,7 +10,6 @@ phases:
     commands:
       - echo Installing dependencies...
       - gradle wrapper
-      - ./gradlew install
   build:
     commands:
       - echo Build started on `date`
