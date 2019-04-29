@@ -9,6 +9,7 @@ import java.util.*;
 /**
  * we are using a hashmap but if we wanted to make this production ready we would need to use a database
  */
+@Repository
 public class RoomRepositoryImpl implements RoomRepository {
 
     private Map<String, Room> rooms;

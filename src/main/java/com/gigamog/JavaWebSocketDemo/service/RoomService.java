@@ -5,6 +5,7 @@ import com.gigamog.JavaWebSocketDemo.model.User;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -20,7 +21,7 @@ public class RoomService {
         Room room = roomRepository.get(new Room(roomId));
         if (room == null) {
             room = roomRepository.create(new Room(roomId));
-            room.setCreatedDate(System.currentTimeMillis() + TimeUnit.DAYS.toMillis(1));
+            room.setCreatedDate(LocalDateTime.now());
         }
         room.getUsers().add(sender);
         return room;

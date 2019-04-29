@@ -29,20 +29,13 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
 
-        ReactorNettyTcpClient<byte[]> client = new ReactorNettyTcpClient<byte[]>(builder ->
-             builder
-                     .port(port)
-                     .host(host)
-                     .secure()
-        , new StompReactorNettyCodec());
         config
                 .setApplicationDestinationPrefixes("/app")
                 .enableStompBrokerRelay("/topic")
-                .setClientLogin(username)
-                .setClientPasscode(pass)
-                .setSystemLogin(username)
-                .setSystemPasscode(pass)
-                .setTcpClient(client);
+                .setRelayHost(host) //
+                .setRelayPort(port) //
+                .setClientLogin(username) //
+                .setClientPasscode(pass);
 
     }
 

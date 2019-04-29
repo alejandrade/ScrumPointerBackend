@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +32,7 @@ public class Room {
     @DynamoDBAttribute(attributeName = "currentStory")
     private Story currentStory = new Story();
 
-    private Integer createdDate;
+    private LocalDateTime createdDate;
 
     public Room(String id) {
         this.id = id;
