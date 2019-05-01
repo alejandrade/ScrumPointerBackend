@@ -1,7 +1,7 @@
 FROM azul/zulu-openjdk-alpine:11
 
 VOLUME /tmp
-RUN ls
+RUN ./gradlew bootJar
 ADD build/libs/JavaWebSocketsDemo-1.0-SNAPSHOT.jar app.jar
 RUN sh -c 'touch /app.jar'
 ENV JAVA_OPTS=""
