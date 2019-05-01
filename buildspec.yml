@@ -1,23 +1,18 @@
 version: 0.2
-env:
-  variables:
-    CACHE_CONTROL: "86400"
-    S3_BUCKET: "gigamogdeployment"
-    BUILD_FOLDER: "build"
-    BUILD_ENV: "prod"
+
 phases:
   install:
     commands:
       - echo Installing dependencies...
-      - gradle wrapper
+      - ./gradlew clean install
   build:
     commands:
       - echo Build started on `date`
       - ./gradlew bootJar
   post_build:
     commands:
-      - aws s3 cp ${BUILD_FOLDER} s3://${S3_BUCKET}/JavaWebSocketDemo --recursive --acl public-read --cache-control "max-age=${CACHE_CONTROL}"
-      - echo Build completed on `date`
+      - docker build -t sephto/pointing:latest .
+      - docker push sephto/pointing:latest
 artifacts:
   files:
     - '**/*'
