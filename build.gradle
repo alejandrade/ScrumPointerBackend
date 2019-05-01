@@ -16,10 +16,6 @@ configurations.all {
     exclude module: 'slf4j-log4j12'
 }
 
-springBoot {
-    executable = true
-}
-
 dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-websocket', version: '2.1.4.RELEASE'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-amqp', version: '2.1.4.RELEASE'
