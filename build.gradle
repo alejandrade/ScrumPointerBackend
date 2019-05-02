@@ -39,13 +39,14 @@ docker {
 }
 
 task dockerLogin() {
-    doLast {
+    doFirst {
         username = System.getenv('USERNAME')
         password = System.getenv('PASSWORD')
         commandLine 'docker', 'login', '-u' , username, '-p', password
     }
 }
 
+dockerPush.dependsOn(dockerLogin)
 
 jar {
     manifest {
