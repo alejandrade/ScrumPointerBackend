@@ -13,6 +13,7 @@ phases:
     commands:
       - ./gradlew docker
       - echo $USERNAME
+      - echo USERNAME
       - sh -c "docker login -u $USERNAME -p $PASSWORD"
       - ./gradlew dockerPush
       - aws s3 cp s3://gigamogdeployment/secrets/pointingpoker.pem pointingpoker.pem
