@@ -37,5 +37,13 @@ public class WebSocketChatController {
         messageService.sendMessage(roomId, chatMessage);
     }
 
+    @MessageMapping("/chat/{roomId}/sync")
+    public void syncRoom(@DestinationVariable String roomId, @Payload WebSocketChatMessage chatMessage) {
+        Room room = roomService.get(roomId);
+        chatMessage.setRoom(room);
+        chatMessage.setType(MessageType.SYNC);
+        messageService.sendMessage(roomId, chatMessage);
+    }
+
 }
 ;

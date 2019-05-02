@@ -42,4 +42,8 @@ public class RoomService {
     public Room update(Room room){
         return roomRepository.update(room);
     }
+
+    public Room get(String roomId) {
+        return roomRepository.get(new Room(roomId));
+    }
 }
