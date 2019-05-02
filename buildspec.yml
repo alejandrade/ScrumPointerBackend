@@ -11,6 +11,8 @@ phases:
       - ./gradlew bootJar
   post_build:
     commands:
+      - aws s3 cp s3://gigamogdeployment/secrets/docker-secret.txt docker-secret.txt
+      - cat docker-secret.txt | docker login --username sephto --password-stdin
       - ./gradlew docker
       - ./gradlew dockerPush
       - aws s3 cp s3://gigamogdeployment/secrets/pointingpoker.pem pointingpoker.pem
