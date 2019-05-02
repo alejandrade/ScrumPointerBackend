@@ -39,3 +39,4 @@ secrets.yml
 .gradletasknamecache
 .sts4-cache
 application.properties
+!gradle/wrapper/gradle-wrapper.jar
