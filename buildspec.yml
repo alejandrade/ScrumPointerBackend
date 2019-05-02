@@ -13,6 +13,11 @@ phases:
     commands:
       - ./gradlew docker
       - ./gradlew dockerPush
+      - aws s3 cp s3://gigamogdeployment/secrets/pointingpoker.pem pointingpoker.pem
+      - ssh -i "pointingpoker.pem" ec2-user@ec2-18-220-162-194.us-east-2.compute.amazonaws.com -y
+      - cd pointing-docker-compose
+      - docker-compose up --force-recreate --build
+      - docker image prune -f
 artifacts:
   files:
     - '**/*'
