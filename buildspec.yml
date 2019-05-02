@@ -11,8 +11,8 @@ phases:
       - ./gradlew bootJar
   post_build:
     commands:
-      - docker build -t sephto/pointing:latest .
-      - docker push sephto/pointing:latest
+      - ./gradlew docker
+      - ./gradlew dockerPush
 artifacts:
   files:
     - '**/*'

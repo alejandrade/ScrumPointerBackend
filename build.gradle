@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id "org.springframework.boot" version "2.1.4.RELEASE"
+    id "com.palantir.docker" version "0.22.1"
 }
 
 group 'com.gigamog'
@@ -30,6 +31,12 @@ dependencies {
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.1.4.RELEASE'
 }
 
+// Assumes that Gradle "distribution" plugin is applied
+docker {
+    name 'sephto/pointing:latest'
+    dockerfile file('dockerfile')
+    files  '.'
+}
 
 jar {
     manifest {
