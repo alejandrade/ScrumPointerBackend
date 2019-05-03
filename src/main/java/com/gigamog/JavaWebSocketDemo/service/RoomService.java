@@ -5,11 +5,7 @@ import com.gigamog.JavaWebSocketDemo.model.User;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 @Service
 @AllArgsConstructor
@@ -17,14 +13,14 @@ public class RoomService {
 
     private RoomRepository roomRepository;
 
-    public Room addUser(String roomId, User sender) {
-        Room room = roomRepository.get(new Room(roomId));
-        if (room == null) {
-            room = roomRepository.create(new Room(roomId));
-            room.setCreatedDate(LocalDateTime.now());
+    public Room addUser(Room newRoom, User sender) {
+        Room savedRoom = roomRepository.get(newRoom);
+        if (savedRoom == null) {
+            return roomRepository.create(newRoom);
         }
-        room.getUsers().add(sender);
-        return room;
+
+        savedRoom.getUsers().add(sender);
+        return savedRoom;
     }
 
     public Room removeUserFromRoom(String currentRoomId, String userId) {

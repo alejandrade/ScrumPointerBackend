@@ -4,7 +4,6 @@ import com.gigamog.JavaWebSocketDemo.model.MessageType;
 import com.gigamog.JavaWebSocketDemo.model.Room;
 import com.gigamog.JavaWebSocketDemo.model.WebSocketChatMessage;
 import com.gigamog.JavaWebSocketDemo.service.MessageService;
-import com.gigamog.JavaWebSocketDemo.service.RoomRepository;
 import com.gigamog.JavaWebSocketDemo.service.RoomService;
 import lombok.AllArgsConstructor;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
@@ -31,7 +30,7 @@ public class WebSocketChatController {
     public void addUser(@DestinationVariable String roomId, @Payload WebSocketChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
         headerAccessor.getSessionAttributes().put("roomId", roomId);
         headerAccessor.getSessionAttributes().put("userId", chatMessage.getSender().getId());
-        Room room = roomService.addUser(roomId, chatMessage.getSender());
+        Room room = roomService.addUser(chatMessage.getRoom(), chatMessage.getSender());
         chatMessage.setRoom(room);
         chatMessage.setType(MessageType.UPDATE);
         messageService.sendMessage(roomId, chatMessage);
