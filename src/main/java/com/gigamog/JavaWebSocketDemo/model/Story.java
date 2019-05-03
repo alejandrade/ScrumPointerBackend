@@ -9,4 +9,5 @@ public class Story {
     private Double score;
     private String storyName;
     private String id;
+    private boolean consensus;
 }
