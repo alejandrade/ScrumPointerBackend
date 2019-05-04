@@ -1,6 +1,6 @@
 package com.gigamog.JavaWebSocketDemo.service;
 
-import com.gigamog.JavaWebSocketDemo.model.WebSocketChatMessage;
+import com.gigamog.JavaWebSocketDemo.domain.WebSocketChatMessage;
 import lombok.AllArgsConstructor;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Service;

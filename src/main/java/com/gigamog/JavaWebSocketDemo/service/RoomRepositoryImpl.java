@@ -1,6 +1,7 @@
 package com.gigamog.JavaWebSocketDemo.service;
 
-import com.gigamog.JavaWebSocketDemo.model.Room;
+import com.gigamog.JavaWebSocketDemo.domain.Room;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -9,6 +10,7 @@ import java.util.Map;
 /**
  * we are using a hashmap but if we wanted to make this production ready we would need to use a database
  */
+@Profile("local")
 @Repository
 public class RoomRepositoryImpl implements RoomRepository {
 

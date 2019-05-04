@@ -1,6 +1,6 @@
 package com.gigamog.JavaWebSocketDemo.service;
 
-import com.gigamog.JavaWebSocketDemo.model.Room;
+import com.gigamog.JavaWebSocketDemo.domain.Room;
 
 public interface RoomRepository {
 

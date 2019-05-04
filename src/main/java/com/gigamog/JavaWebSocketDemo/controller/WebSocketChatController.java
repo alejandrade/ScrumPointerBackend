@@ -1,8 +1,8 @@
 package com.gigamog.JavaWebSocketDemo.controller;
 
-import com.gigamog.JavaWebSocketDemo.model.MessageType;
-import com.gigamog.JavaWebSocketDemo.model.Room;
-import com.gigamog.JavaWebSocketDemo.model.WebSocketChatMessage;
+import com.gigamog.JavaWebSocketDemo.domain.MessageType;
+import com.gigamog.JavaWebSocketDemo.domain.Room;
+import com.gigamog.JavaWebSocketDemo.domain.WebSocketChatMessage;
 import com.gigamog.JavaWebSocketDemo.service.MessageService;
 import com.gigamog.JavaWebSocketDemo.service.RoomService;
 import lombok.AllArgsConstructor;

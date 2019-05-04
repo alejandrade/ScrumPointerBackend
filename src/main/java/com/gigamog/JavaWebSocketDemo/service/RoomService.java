@@ -1,7 +1,7 @@
 package com.gigamog.JavaWebSocketDemo.service;
 
-import com.gigamog.JavaWebSocketDemo.model.Room;
-import com.gigamog.JavaWebSocketDemo.model.User;
+import com.gigamog.JavaWebSocketDemo.domain.Room;
+import com.gigamog.JavaWebSocketDemo.domain.User;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

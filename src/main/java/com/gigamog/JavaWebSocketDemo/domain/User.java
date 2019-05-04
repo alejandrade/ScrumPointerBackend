@@ -1,4 +1,4 @@
-package com.gigamog.JavaWebSocketDemo.model;
+package com.gigamog.JavaWebSocketDemo.domain;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
